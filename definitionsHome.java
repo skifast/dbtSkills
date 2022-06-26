@@ -113,7 +113,6 @@ public class definitionsHome extends optionHomeFrame {
 			JPanel makeTextSmaller = new JPanel();
 			makeTextSmaller.setLayout(new GridLayout(1, 2));
 			makeTextSmaller.setBackground(Color.green.darker());
-			makeTextSmaller.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 			skillNtext.add(makeTextSmaller);
 			
 			JPanel makeTextSmaller2 = new JPanel();
@@ -167,7 +166,9 @@ public class definitionsHome extends optionHomeFrame {
 		
 	}
 	
-	public void getDefinitions() {
+	public void getDefinitions(JLabel result1, JLabel result2) {
+		result1.setVisible(false);
+		result2.setVisible(false);
 		int definitionLineLength = 30; 
 		int skillLength = 15; 
 		if(skillsStack.size() < 4) {

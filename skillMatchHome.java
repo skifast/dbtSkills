@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Stack;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,24 +16,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class skillMatchHome extends JFrame{
+public class skillMatchHome extends optionHomeFrame{
 	Map<String, String> dbtSkillsCategories; 
 	JComboBox<String> category1;
 	JLabel skill1;
 	ArrayList<String> dbtSkills; 
-	JLabel result; 
+	static JLabel result1; 
+	Stack<String> skillStack;
 	
 	public skillMatchHome() {
-		setTitle("DBT Skills Quizers");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(null);
-        //setting the bounds for the JFrame
-        setBounds(0,0,600,500);
-      
+		skillStack = new Stack<>(); 
         assembleMap();
         assembleAL();
-        
-        setVisible(true);
+        assembleStack();
 	}
 	
 	public void assembleMap() {
@@ -66,74 +62,24 @@ public class skillMatchHome extends JFrame{
 		dbtSkills = new ArrayList<String> (dbtSkillsCategories.keySet());
 	}
 	
-	public ALHMPair skillMatchPanels() {
+	public ALHMPair skillMatchPanels(ArrayList<JButton> buttonLst, JPanel panel2, JLabel result1, JLabel result2) {
+		skillMatchHome.result1 = result1; 
 		
-		ArrayList<JButton> buttonLst = new ArrayList<>();
-		
-		Container c=getContentPane();
-        
-        JPanel panel1=new JPanel();
-        //setting the panel layout as null
-        panel1.setLayout(null);
-        panel1.setBackground(Color.blue);
-        panel1.setBounds(0,0,600, 100);
-        
-        
-        JLabel skillMatch = new JLabel();
-		skillMatch.setText("Skill Match");
-		panel1.add(skillMatch);
-        
-        JButton previous = new JButton(); 
-		previous.setText("Back");
-		panel1.add(previous);
-		previous.setBounds(30, 20, 100, 50);
-		buttonLst.add(previous);
-		//previous.setPreferredSize(new Dimension(200, 50));
-        
-        
-        //Creating a JPanel for the JFrame
-        JPanel panel2=new JPanel();
-        panel2.setLayout(new GridLayout(1, 1));
-        panel2.setBackground(Color.green.darker());
-        panel2.setBounds(0,100, 600, 250);
         panel2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
-        
+        panel2.setLayout(null);
 		skill1 = new JLabel();
-		//skill1.setBounds(80, 40, 40, 20);
+		skill1.setBounds(75, 150, 225, 20);
 		skill1.setText("skill1");
 		panel2.add(skill1);
 		
 		String[] optionsToChoose = {"Mindfulness", "Interpersonal Effectiveness", "Emotional Regulation", "Distress tolerance"};
 
 		category1 = new JComboBox<>(optionsToChoose);
-		category1.setBounds(80, 150, 160, 20);
+		category1.setBounds(300, 150, 180, 20);
 		panel2.add(category1);
 		
-		result = new JLabel();
-		panel2.add(result);
-		result.setVisible(false);
-		
-		JPanel panel3 = new JPanel();
-		//panel3.setLayout(null);
-        panel3.setBackground(Color.blue);
-        panel3.setBounds(0, 350, 600, 500);
-
-        JButton submit = new JButton(); 
-        submit.setText("Submit");
-		panel3.add(submit);
-		//submit.setBounds(0, 320, 50, 350);
-		buttonLst.add(submit);
-		
-        JButton next = new JButton(); 
-        next.setText("Next");
-		panel3.add(next);
-		//next.setBounds(0, 320, 50, 350);
-		buttonLst.add(next);
-		
-		c.add(panel1);
-	    c.add(panel2);
-	    c.add(panel3);
+		result1.setVisible(false);
 	        
 		setVisible(true);
 		
@@ -142,9 +88,24 @@ public class skillMatchHome extends JFrame{
 		return pair; 
 	}
 	
-	public void randomSkill() {
+	public void assembleStack() {
 		Random rand = new Random();
-		skill1.setText(dbtSkills.get(rand.nextInt(dbtSkills.size())));
+		int nextInt;
+		for(int i = 0; i < dbtSkills.size(); i++) {
+			nextInt = rand.nextInt(dbtSkills.size());
+			while(skillStack.size() > 0 && skillStack.contains(dbtSkills.get(nextInt))) {
+				nextInt = rand.nextInt(dbtSkills.size());
+			}
+			skillStack.add(dbtSkills.get(nextInt));
+		}
+	}
+	
+	public void randomSkill() {
+		if(skillStack.size() == 0) {
+			assembleStack();
+		}
+		String skill = skillStack.pop();
+		skill1.setText(skill);
 	}
 	
 	public String getComboBox() {
@@ -156,14 +117,19 @@ public class skillMatchHome extends JFrame{
 	}
 	
 	public void resultSetVisible(boolean answerResult) {
-		result.setVisible(true);
+		result1.setVisible(true);
 		if(answerResult == true)
-			result.setText("That's correct!");
+			result1.setText("That's correct!");
 		else
-			result.setText("Incorrect, try again!");
+			result1.setText("Incorrect, try again or press 'Show Solution'");
 	}
 	
 	public void resultSetInvisible() {
-		result.setVisible(false);
+		result1.setVisible(false);
+	}
+	
+	public void showSolution(String skill, String ans) {
+		result1.setVisible(true);
+		result1.setText(skill + " is a " + ans + " skill");
 	}
 }

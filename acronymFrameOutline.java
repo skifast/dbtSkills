@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class acronymFrameOutline extends JFrame {
+public class acronymFrameOutline extends optionHomeFrame {
 	public static Map<String, ArrayList<String>> acronymHM;
 	public static String acronym;
 	public static JLabel result1;
@@ -34,10 +34,12 @@ public class acronymFrameOutline extends JFrame {
 	}
 	
 	public void customizeOutline(String acronym, String[] standsFor, String[] extras) {
+		
 		acronymFrameOutline.acronym = acronym; 
 		acronymFrameOutline.standsFor = standsFor;
 		acronymFrameOutline.acronymHM = new HashMap<String, ArrayList<String>>();
 		acronymFrameOutline.extras = extras; 
+		
 		
 		for(int i = 0; i < acronym.length(); i++) {
 			String curLetter = "" + acronym.charAt(i);
@@ -72,17 +74,20 @@ public class acronymFrameOutline extends JFrame {
 		textFields[8] = new JTextField();
 	}
 	
-	public ArrayList<JButton> acronymFramePanels(){
+	public ArrayList<JButton> acronymFramePanels(Container c, JLabel result1, JLabel result2, JPanel panel2){
 		ArrayList<JButton> buttonLst = new ArrayList<>();
+		acronymFrameOutline.result1 = result1; 
+		acronymFrameOutline.result2 = result2; 
 		
-        Container c=getContentPane();
+        //Container c=getContentPane();
         
+		/*
         JPanel panel1=new JPanel();
         panel1.setLayout(null);
         panel1.setBackground(Color.blue);
-        panel1.setBounds(0,0,600,75);
+        panel1.setBounds(0,0,600,75);*/
         
-        
+        /*
         JLabel acronyms = new JLabel();
 		acronyms.setText(acronym.toUpperCase() + " Acronym");
 		panel1.add(acronyms);
@@ -93,9 +98,9 @@ public class acronymFrameOutline extends JFrame {
 		previous.setText("Back");
 		panel1.add(previous);
 		buttonLst.add(previous);
-		previous.setBounds(30, 20, 100, 50);
+		previous.setBounds(30, 20, 100, 50);*/
 		
-        JPanel panel2=new JPanel();
+        //JPanel panel2=new JPanel();
         panel2.setLayout(new GridLayout(acronym.length(), 1));
 	
         panel2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -107,8 +112,9 @@ public class acronymFrameOutline extends JFrame {
         }
         
         panel2.setBackground(Color.green.darker());
-        panel2.setBounds(0,75, 600, 300);
+        //panel2.setBounds(0,75, 600, 300);
 		
+        /*
 		JPanel panel3 = new JPanel();
         panel3.setBackground(Color.blue);
         panel3.setBounds(0, 375, 600, 200);
@@ -124,8 +130,9 @@ public class acronymFrameOutline extends JFrame {
 		showSolution.setText("Show Solution");
 		showSolution.setBounds(300, 10, 100, 50);
 		panel3.add(showSolution);
-		buttonLst.add(showSolution);
+		buttonLst.add(showSolution);*/
         
+        /*
         result1 = new JLabel();
         result2 = new JLabel();
         result1.setBounds(10, 50, 590, 50);
@@ -134,12 +141,13 @@ public class acronymFrameOutline extends JFrame {
         result2.setForeground(Color.white);
 		panel3.add(result1);
 		panel3.add(result2);
+		*/
 		result1.setVisible(false);
 		result2.setVisible(false);
-		
-		c.add(panel1);
-	    c.add(panel2);
-	    c.add(panel3);
+	
+		//c.add(panel1);
+	    //c.add(panel2);
+	    //c.add(panel3);
 		
 	    return buttonLst;
 	}
@@ -147,7 +155,7 @@ public class acronymFrameOutline extends JFrame {
 	public void printTextFields() {
 		boolean correctAnswer = true; 
 		for(int i = 0; i < acronym.length(); i++) {
-			String curTextField = textFields[i].getText(); 
+			String curTextField = textFields[i].getText().toLowerCase(); 
 			if(curTextField.equals("")) {
 				result2.setVisible(false);
 				result1.setVisible(true);
@@ -155,7 +163,7 @@ public class acronymFrameOutline extends JFrame {
 				result1.setText("One or more of the text fields has been left blank");
 			}
 			else {
-				if(!curTextField.toLowerCase().contains(standsFor[i]))
+				if(!curTextField.toLowerCase().contains(standsFor[i].toLowerCase()))
 					correctAnswer = false; 
 					result2.setVisible(false);
 					result1.setVisible(true);
@@ -178,16 +186,19 @@ public class acronymFrameOutline extends JFrame {
 			String solutionWord = standsFor[i];
 			if(i == acronym.length() - 1)
 				solution += extra + " " + solutionWord;
+			else if(i == 3 && acronym.equals("abcplease"))
+				solution += extra + " " + solutionWord;
 			else
 				solution += extra + " " + solutionWord + ", ";
+			
 		}
 		
 		result1.setVisible(true);
 
 		if(solution.length() > solutionStringValue) {
 			result2.setVisible(true);
-			result1.setText(solution.substring(0, solutionStringValue));
-			result2.setText(solution.substring(solutionStringValue, solution.length()));
+			result1.setText(solution.substring(0, getProperSubsequence(solutionStringValue, solution)));
+			result2.setText(solution.substring(getProperSubsequence(solutionStringValue, solution), solution.length()));
 		}
 		else {
 			result2.setVisible(false);
@@ -195,6 +206,15 @@ public class acronymFrameOutline extends JFrame {
 			result2.setText("");
 		}
 	}
+	
+	public int getProperSubsequence(int end, String curDef) {
+		int resultEnd = end; 
+		while(curDef.charAt(resultEnd) != ' ') {
+			resultEnd -= 1;
+		}
+		return resultEnd; 
+	}
+	
 }
 
 

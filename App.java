@@ -20,30 +20,18 @@ public class App extends JFrame{
 	static skillMatchHome skillMatchHome;
 	static situationsHome situationsHome; 
 	
-	static acronymFrameOutline fastAcronym;
-	static acronymFrameOutline giveAcronym;
-	static acronymFrameOutline dearmanAcronym;
-	static acronymFrameOutline abcpleaseAcronym;
-	
-	static stopAcronym stopAcronym; 
-	static tippAcronym tippAcronym; 
-	static acceptsAcronym acceptsAcronym; 
-	
 	//button lists
 	static ArrayList<JButton> acronymButtonLst = new ArrayList<>();
 	static ArrayList<JButton> skillMatchButtonLst = new ArrayList<>();
 	static ArrayList<JButton> situationsButtonLst = new ArrayList<>();
-	static ArrayList<JButton> fastAcronymButtonLst = new ArrayList<>();
-	static ArrayList<JButton> giveAcronymButtonLst = new ArrayList<>();
-	static ArrayList<JButton> dearmanAcronymButtonLst = new ArrayList<>();
-	static ArrayList<JButton> abcpleaseAcronymButtonLst = new ArrayList<>();
-	static ArrayList<JButton> stopAcronymButtonLst = new ArrayList<>();
-	static ArrayList<JButton> tippAcronymButtonLst = new ArrayList<>();
-	static ArrayList<JButton> acceptsAcronymButtonLst = new ArrayList<>();
 	static ArrayList<JButton> definitionsButtonLst = new ArrayList<>();
 	static ArrayList<Button> buttonLst;
 	
 	public static void main(String[] args) {
+		mainFrame();
+	}
+	
+	public static void mainFrame() {
 		homeScreen = new homeScreen();
 		buttonLst = homeScreen.homescreenPanels();
 		
@@ -75,7 +63,6 @@ public class App extends JFrame{
 				situationsFrame(); 
 			}
 		});
-		 
 	}
 	
 	private static void definitionsHomeFrame() {
@@ -88,7 +75,7 @@ public class App extends JFrame{
 		JLabel result2 = bundle.result2;
 		definitionsButtonLst = definitionsHome.definitionsscreenPanels(c, buttonList, panelList.get(1));
 		definitionsHome.assembleStack();
-		definitionsHome.getDefinitions();
+		definitionsHome.getDefinitions(result1, result2);
 		if(buttonList.size() > 0) {
 			//previous button
 			buttonList.get(0).addActionListener(new ActionListener() {
@@ -113,14 +100,24 @@ public class App extends JFrame{
 					definitionsHome.showSolutions(result1, result2);
 				}
 			});
+			buttonList.get(3).addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					definitionsHome.getDefinitions(result1, result2);
+				}
+			});
 		}
 	}
 	
 	private static void acronymHomeFrame() {
 		acronymHome = new acronymHome(); 
-		ButtonALPanelALPair buttonsNPanels = acronymHome.optionHomePanels("Acronyms");
-		ArrayList<JButton> buttonList = buttonsNPanels.buttonAl;
-		ArrayList<JPanel> panelList = buttonsNPanels.panelAl;
+		OptionHomeBundle bundle = acronymHome.optionHomePanels("Acronyms", "Choose an acronym to practice, then fill in the blanks");
+		ArrayList<JButton> buttonList = bundle.buttonAl;
+		//buttonList.get(0).getName();
+		ArrayList<JPanel> panelList = bundle.panelAl;
+		Container c = bundle.c;
+		c.remove(panelList.get(3));
 		acronymButtonLst = acronymHome.acronymscreenPanels(buttonList, panelList.get(1));
 		
 		if(acronymButtonLst.size() > 0) {
@@ -133,7 +130,7 @@ public class App extends JFrame{
 					buttonLst = homeScreen.homescreenPanels();
 				}
 			});
-			acronymButtonLst.get(1).addActionListener(new ActionListener() {
+			acronymButtonLst.get(4).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -141,7 +138,7 @@ public class App extends JFrame{
 					fastAcronymFrame();
 				}
 			});
-			acronymButtonLst.get(2).addActionListener(new ActionListener() {
+			acronymButtonLst.get(5).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -149,7 +146,7 @@ public class App extends JFrame{
 					giveAcronymFrame();
 				}
 			});
-			acronymButtonLst.get(3).addActionListener(new ActionListener() {
+			acronymButtonLst.get(6).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -157,7 +154,7 @@ public class App extends JFrame{
 					dearmanAcronymFrame();
 				}
 			});
-			acronymButtonLst.get(4).addActionListener(new ActionListener() {
+			acronymButtonLst.get(7).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -165,7 +162,7 @@ public class App extends JFrame{
 					abcpleaseAcronymFrame();
 				}
 			});
-			acronymButtonLst.get(5).addActionListener(new ActionListener() {
+			acronymButtonLst.get(8).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -173,7 +170,7 @@ public class App extends JFrame{
 					stopAcronymFrame();
 				}
 			});
-			acronymButtonLst.get(6).addActionListener(new ActionListener() {
+			acronymButtonLst.get(9).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -181,7 +178,7 @@ public class App extends JFrame{
 					tippAcronymFrame();
 				}
 			});
-			acronymButtonLst.get(7).addActionListener(new ActionListener() {
+			acronymButtonLst.get(10).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -189,13 +186,25 @@ public class App extends JFrame{
 					acceptsAcronymFrame();
 				}
 			});
+			acronymButtonLst.get(11).addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					acronymHome.dispose();
+					improveAcronymFrame();
+				}
+			});
 		}
 	}
 	
 	private static void skillMatchFrame() {
-		homeScreen.dispose();
 		skillMatchHome = new skillMatchHome();
-		ALHMPair pair = skillMatchHome.skillMatchPanels();
+		OptionHomeBundle bundle = skillMatchHome.optionHomePanels("Skill Match", "Select the category in the drop down menu that fits the skill");
+		ArrayList<JButton> skillMatchButtonLst = bundle.buttonAl;
+		ArrayList<JPanel> panelLst = bundle.panelAl; 
+		JLabel result1 = bundle.result1;
+		JLabel result2 = bundle.result2;
+		ALHMPair pair = skillMatchHome.skillMatchPanels(skillMatchButtonLst, panelLst.get(1), result1, result2);
 		skillMatchButtonLst = pair.al;
 		Map<String, String> skillMatchHashMap = pair.hm;
 		skillMatchHome.randomSkill();
@@ -207,7 +216,7 @@ public class App extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					skillMatchHome.dispose();
-					buttonLst = homeScreen.homescreenPanels();
+					mainFrame();
 				}
 			});
 			//submit button 
@@ -217,6 +226,7 @@ public class App extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					String ans = skillMatchHome.getComboBox();
 					String skill = skillMatchHome.getSkill();
+					
 					if(ans.equals(skillMatchHashMap.get(skill))) {
 						skillMatchHome.resultSetVisible(true);
 					}
@@ -225,8 +235,17 @@ public class App extends JFrame{
 					}
 				}
 			});
-			//next button 
 			skillMatchButtonLst.get(2).addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					String skill = skillMatchHome.getSkill();
+					String ans = skillMatchHashMap.get(skill);
+					skillMatchHome.showSolution(skill, ans);
+				}
+			});
+			//next button 
+			skillMatchButtonLst.get(3).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -280,277 +299,136 @@ public class App extends JFrame{
 	}
 	
 	private static void fastAcronymFrame() {
-		ButtonALPanelALPair buttonsNPanels = acronymHome.optionHomePanels("Acronyms");
-		ArrayList<JButton> buttonList = buttonsNPanels.buttonAl;
-		ArrayList<JPanel> panelList = buttonsNPanels.panelAl;
-		
-		fastAcronym = new acronymFrameOutline();
-		String[] standsFor = {"fair", "apologies", "stick to your values", "truthful"};
-		String[] extras = {"(be)", "(no)", "", "(be)"};
-		fastAcronym.customizeOutline("fast", standsFor, extras);
-		fastAcronymButtonLst = fastAcronym.acronymFramePanels();
-		
-		if(fastAcronymButtonLst.size() > 0) {
-			//previous button
-			fastAcronymButtonLst.get(0).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					fastAcronym.dispose();
-					acronymButtonLst = acronymHome.acronymscreenPanels(buttonList, panelList.get(1));
-				}
-			});
-			//submit button
-			fastAcronymButtonLst.get(1).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					fastAcronym.printTextFields();
-				}
-			});
-			//show solution button
-			fastAcronymButtonLst.get(2).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					fastAcronym.showSolution();
-				}
-			});
-		}
+		acronymFrameOutline fastAcronym = new acronymFrameOutline();
+		String[] standsFor = {"fair", "apologies", "values", "truthful"};
+		String[] extras = {"(be)", "(no)", "stick to your", "(be)"};
+		someAcronymFrame(fastAcronym, "fast", standsFor, extras);
 	}
 	
 	private static void giveAcronymFrame() {
-		ButtonALPanelALPair buttonsNPanels = acronymHome.optionHomePanels("Acronyms");
-		ArrayList<JButton> buttonList = buttonsNPanels.buttonAl;
-		ArrayList<JPanel> panelList = buttonsNPanels.panelAl;
-		
-		giveAcronym = new acronymFrameOutline();
+		acronymFrameOutline giveAcronym = new acronymFrameOutline();
 		String[] standsFor = {"gentle", "interested", "validate", "easy manner"};
 		String[] extras = {"(be)", "(act)", "", "(use an)"};
-		giveAcronym.customizeOutline("give", standsFor, extras);
-		giveAcronymButtonLst = giveAcronym.acronymFramePanels();
-		
-		
-		if(giveAcronymButtonLst.size() > 0) {
-			//previous button
-			giveAcronymButtonLst.get(0).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					giveAcronym.dispose();
-					acronymButtonLst = acronymHome.acronymscreenPanels(buttonList, panelList.get(1));
-				}
-			});
-			//submit button
-			giveAcronymButtonLst.get(1).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					giveAcronym.printTextFields();
-				}
-			});
-			//show solution button
-			giveAcronymButtonLst.get(2).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					giveAcronym.showSolution();
-				}
-			});
-		}
+		someAcronymFrame(giveAcronym, "give", standsFor, extras);
 	}
 	
 	private static void dearmanAcronymFrame() {
-		ButtonALPanelALPair buttonsNPanels = acronymHome.optionHomePanels("Acronyms");
-		ArrayList<JButton> buttonList = buttonsNPanels.buttonAl;
-		ArrayList<JPanel> panelList = buttonsNPanels.panelAl;
-		
-		dearmanAcronym = new acronymFrameOutline();
+		acronymFrameOutline dearmanAcronym = new acronymFrameOutline();
 		String[] standsFor = {"describe", "express", "assert", "reinforce", "mindful", "appear confident", "negotiate" };
 		String[] extras = {"", "", "", "", "(stay)", "", "", "", ""};
-		dearmanAcronym.customizeOutline("dearman", standsFor, extras);
-		dearmanAcronymButtonLst = dearmanAcronym.acronymFramePanels();
-		
-		
-		if(dearmanAcronymButtonLst.size() > 0) {
-			//previous button
-			dearmanAcronymButtonLst.get(0).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					dearmanAcronym.dispose();
-					acronymButtonLst = acronymHome.acronymscreenPanels(buttonList, panelList.get(1));
-				}
-			});
-			//submit button
-			dearmanAcronymButtonLst.get(1).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					dearmanAcronym.printTextFields();
-				}
-			});
-			//show solution button
-			dearmanAcronymButtonLst.get(2).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					dearmanAcronym.showSolution();
-				}
-			});
-		}
+		someAcronymFrame(dearmanAcronym, "dearman", standsFor, extras);
 	}
 	
 	private static void abcpleaseAcronymFrame() {
-		ButtonALPanelALPair buttonsNPanels = acronymHome.optionHomePanels("Acronyms");
-		ArrayList<JButton> buttonList = buttonsNPanels.buttonAl;
-		ArrayList<JPanel> panelList = buttonsNPanels.panelAl;
-		
-		abcpleaseAcronym = new acronymFrameOutline();
+		acronymFrameOutline abcpleaseAcronym = new acronymFrameOutline();
 		String[] standsFor = {"accumulate positive emotions", "build mastery", "cope ahead", "physical",
 				"illness", "eating", "substances", "sleep", "exercise" };
 		String[] extras = {"", "", "", "(treat)", "", "(balance)", "(avoid mood-alterning)", "(balance)", "(get)"};
-		abcpleaseAcronym.customizeOutline("abcplease", standsFor, extras);
-		abcpleaseAcronymButtonLst = abcpleaseAcronym.acronymFramePanels();
-		
-		if(abcpleaseAcronymButtonLst.size() > 0) {
-			//previous button
-			abcpleaseAcronymButtonLst.get(0).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					abcpleaseAcronym.dispose();
-					acronymButtonLst = acronymHome.acronymscreenPanels(buttonList, panelList.get(1));
-				}
-			});
-			//submit button
-			abcpleaseAcronymButtonLst.get(1).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					abcpleaseAcronym.printTextFields();
-				}
-			});
-			//show solution button
-			abcpleaseAcronymButtonLst.get(2).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					abcpleaseAcronym.showSolution();
-				}
-			});
-		}
+		someAcronymFrame(abcpleaseAcronym, "abcplease", standsFor, extras);
 	}
 	
 	private static void stopAcronymFrame() {
-		stopAcronym = new stopAcronym("stop");
-		stopAcronymButtonLst = stopAcronym.stopAcronymPanels();
-		
-		if(stopAcronymButtonLst.size() > 0) {
-			//previous button
-			stopAcronymButtonLst.get(0).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					stopAcronym.dispose();
-					stopAcronymButtonLst = stopAcronym.stopAcronymPanels();
-				}
-			});
-			//submit button
-			stopAcronymButtonLst.get(1).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					stopAcronym.printTextFields();
-				}
-			});
-			//show solution button
-			stopAcronymButtonLst.get(2).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					stopAcronym.showSolution();
-				}
-			});
-		}
+		acronymFrameOutline stopAcronym = new acronymFrameOutline();
+		String[] standsFor = {"stop", "take a step back", "observe", "proceed mindfully"};
+		String[] extras = {"", "", "", ""};
+		someAcronymFrame(stopAcronym, "stop", standsFor, extras);
 	}
 	
 	private static void tippAcronymFrame() {
-		tippAcronym = new tippAcronym("tipp");
-		tippAcronymButtonLst =tippAcronym.tippAcronymPanels();
+		acronymFrameOutline tippAcronym = new acronymFrameOutline();
+		String[] standsFor = {"tip the temperature of your face with cold water", "intense exercise", "paced breathing", "paired muscle relaxation"};
+		String[] extras = {"", "", "", ""};
+		someAcronymFrame(tippAcronym, "tipp", standsFor, extras);
+	}
+	
+	private static void acceptsAcronymFrame() {
+		acronymFrameOutline acceptsAcronym = new acronymFrameOutline();
+		String[] standsFor = {"activities", "contributing", "comparisons",
+				"emotions", "pushing away", "thoughts", "sensations"};
+		String[] extras = {"(With)", "(With)", "(With)", "(With different)", "(With)", "(With other)", "(With other)"};
+		someAcronymFrame(acceptsAcronym, "accepts", standsFor, extras);
+	}
+	
+	private static void improveAcronymFrame() {
+		acronymFrameOutline improveAcronym = new acronymFrameOutline();
+		String[] standsFor = {"Imagery", "Meaning", "Prayer", "Relaxing actions", "One thing in the moment", "Vacation", "Encouragement and rethinking"};
+		String[] extras = {"(With)", "(With)", "(With)", "(With)", "(With)", "(Wih a brief)", "(With) self-"};
+		someAcronymFrame(improveAcronym, "improve", standsFor, extras);
+	}
+	
+	private static void someAcronymFrame(final acronymFrameOutline acronym, String acronymName, String[] standsFor, String[] extras) {
+		OptionHomeBundle bundle = acronym.optionHomePanels(acronymName.toUpperCase() + " Acronym", "Fill in the blanks, then press submit");
+		Container c = bundle.c;
+		JLabel result1 = bundle.result1;
+		JLabel result2 = bundle.result2;
+		ArrayList<JButton> buttonList = bundle.buttonAl;
+		ArrayList<JPanel> panelList = bundle.panelAl;
 		
-		ButtonALPanelALPair buttonsNPanels = acronymHome.optionHomePanels("Acronyms");
-		ArrayList<JButton> buttonList = buttonsNPanels.buttonAl;
-		ArrayList<JPanel> panelList = buttonsNPanels.panelAl;
+		acronym.customizeOutline(acronymName, standsFor, extras);
+		ArrayList<JButton> acronymButtonLst = acronym.acronymFramePanels(c, result1, result2, panelList.get(1));
 		
-		
-		if(tippAcronymButtonLst.size() > 0) {
+		for(int i = 0; i < buttonList.size(); i++) {
+			acronymButtonLst.add(buttonList.get(i));
+		}
+		if(acronymButtonLst.size() > 0) {
 			//previous button
-			tippAcronymButtonLst.get(0).addActionListener(new ActionListener() {
+			acronymButtonLst.get(0).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					tippAcronym.dispose();
-					acronymButtonLst = acronymHome.acronymscreenPanels(buttonList, panelList.get(1));
+					acronym.dispose();
+					acronymHomeFrame();
 				}
 			});
 			//submit button
-			tippAcronymButtonLst.get(1).addActionListener(new ActionListener() {
+			acronymButtonLst.get(1).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					tippAcronym.printTextFields();
+					acronym.printTextFields();
 				}
 			});
 			//show solution button
-			tippAcronymButtonLst.get(2).addActionListener(new ActionListener() {
+			acronymButtonLst.get(2).addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					tippAcronym.showSolution();
+					acronym.showSolution();
+				}
+			});
+			//next button
+			acronymButtonLst.get(3).addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					acronym.dispose();
+					if(acronymName.equals("fast")) {
+						giveAcronymFrame();
+					}
+					else if(acronymName.equals("give")) {
+						dearmanAcronymFrame();
+					}
+					else if(acronymName.equals("dearman")) {
+						abcpleaseAcronymFrame();
+					}
+					else if(acronymName.equals("abcplease")) {
+						stopAcronymFrame(); 
+					}
+					else if(acronymName.equals("stop")) {
+						tippAcronymFrame(); 
+					}
+					else if(acronymName.equals("tipp")) {
+						acceptsAcronymFrame(); 
+					}
+					else if(acronymName.equals("accepts")) {
+						improveAcronymFrame(); 
+					}
+					else if(acronymName.equals("improve")) {
+						fastAcronymFrame(); 
+					}
 				}
 			});
 		}
 	}
 	
-	private static void acceptsAcronymFrame() {
-		acceptsAcronym = new acceptsAcronym("accepts");
-		acceptsAcronymButtonLst = acceptsAcronym.acceptsAcronymPanels();
-		
-		ButtonALPanelALPair buttonsNPanels = acronymHome.optionHomePanels("Acronyms");
-		ArrayList<JButton> buttonList = buttonsNPanels.buttonAl;
-		ArrayList<JPanel> panelList = buttonsNPanels.panelAl;
-		
-		if(acceptsAcronymButtonLst.size() > 0) {
-			//previous button
-			acceptsAcronymButtonLst.get(0).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					acceptsAcronym.dispose();
-					acronymButtonLst = acronymHome.acronymscreenPanels(buttonList, panelList.get(1));
-				}
-			});
-			//submit button
-			acceptsAcronymButtonLst.get(1).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					acceptsAcronym.printTextFields();
-				}
-			});
-			//show solution button
-			acceptsAcronymButtonLst.get(2).addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					acceptsAcronym.showSolution();
-				}
-			});
-		}
-	}
- 	
-	private static void improveAcronymFrame() {
-		
-	}
 }

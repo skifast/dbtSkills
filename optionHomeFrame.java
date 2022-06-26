@@ -33,7 +33,7 @@ public class optionHomeFrame extends JFrame{
         
         JLabel title = new JLabel(titleText);
         title.setForeground(Color.white);
-        title.setBounds(250, 20, 100, 50);
+        title.setBounds(250, 20, 150, 50);
         titlePanel.add(title);
         
         JButton previous = new JButton(); 
@@ -64,38 +64,43 @@ public class optionHomeFrame extends JFrame{
 		
 		JButton submit = new JButton(); 
 		submit.setText("Submit");
-		submit.setBounds(150, 10, 100, 30);
+		submit.setBounds(125, 10, 100, 30);
 		submissionPanel.add(submit);
 		buttonLst.add(submit);
 		
 		JButton showAnswer = new JButton(); 
-		showAnswer.setText("Show Answer");
-		showAnswer.setBounds(275, 10, 150, 30);
+		showAnswer.setText("Show Solution");
+		showAnswer.setBounds(225, 10, 150, 30);
 		submissionPanel.add(showAnswer);
 		buttonLst.add(showAnswer);
 		
+		JButton next = new JButton(); 
+		next.setText("Next");
+		next.setBounds(375, 10, 100, 30);
+		submissionPanel.add(next);
+		buttonLst.add(next);
+		
+		//result1 and result2 will display correct or 
+		//incorrect and the solution
 		JLabel result1 = new JLabel(); 
 		result1.setBounds(10, 40, 580, 20);
-		result1.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 		result1.setForeground(Color.white);
 		result1.setVisible(false);
 		submissionPanel.add(result1);
 		
 		JLabel result2 = new JLabel(); 
-		result2.setText("the result is");
 		result2.setBounds(10, 70, 580, 20);
-		result2.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 		result2.setForeground(Color.white);
 		result2.setVisible(false);
 		submissionPanel.add(result2);
 		
-		//adding the panel to the Container of the JFrame
+		//adding the panels to the Container of the JFrame
         c.add(titlePanel);
         c.add(directionsPanel);
         c.add(panel2);
         c.add(submissionPanel);
         
-        
+        //adding the panels to a panel list
         panelLst.add(titlePanel);
         panelLst.add(panel2);
         panelLst.add(directionsPanel);
@@ -107,5 +112,6 @@ public class optionHomeFrame extends JFrame{
         
         return returnThis;
 	}
+	
 
 }
