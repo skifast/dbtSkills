@@ -79,9 +79,9 @@ public class skillMatchHome extends JFrame{
         panel1.setBounds(0,0,600, 100);
         
         
-        JLabel acronyms = new JLabel();
-		acronyms.setText("Skill Match");
-		panel1.add(acronyms);
+        JLabel skillMatch = new JLabel();
+		skillMatch.setText("Skill Match");
+		panel1.add(skillMatch);
         
         JButton previous = new JButton(); 
 		previous.setText("Back");

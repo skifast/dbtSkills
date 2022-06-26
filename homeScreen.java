@@ -27,27 +27,9 @@ public class homeScreen extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         //setting the bounds for the JFrame
-        setBounds(0,0,600,500);
+        setBounds(0,0,600,575);
         
         setVisible(true);
-		/*
-		GridLayout layout = new GridLayout(3, 1);
-		
-		JPanel players = new JPanel(layout);
-		
-		
-		players.setBackground(Color.green.darker());
-		players.setPreferredSize(new Dimension(450, 350));
-		
-
-		JPanel content = new JPanel();
-		content.setLayout(new BorderLayout());
-
-		
-		frame.setContentPane(content);
-		content.add(players);
-		frame.pack();
-		frame.setVisible(true);*/
 	}
 	
 	public ArrayList<Button> homescreenPanels() {
@@ -55,28 +37,45 @@ public class homeScreen extends JFrame{
         
         Container c=getContentPane();
         
-      
+        JPanel panel1 = new JPanel();
+        panel1.setBounds(0,0, 600, 75);
+        JLabel welcome = new JLabel();
+        welcome.setText("Welcome to the DBT Skills Quizer");
+        panel1.add(welcome);
+        panel1.setBackground(Color.green.darker());
+        panel1.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+		
         //Creating a JPanel for the JFrame
         JPanel panel2=new JPanel();
         //setting the panel layout as null
-        panel2.setLayout(new GridLayout(3, 1));
+        panel2.setLayout(new GridLayout(4, 1));
+        
+        Button btn_0 = new Button("Definitions");
+		btn_0.setBackground(Color.green.darker());
+		btn_0.setPreferredSize(new Dimension(400, 75)); 
         
 		Button btn_1 = new Button("Acronyms");
 		btn_1.setBackground(Color.green.darker());
-		btn_1.setPreferredSize(new Dimension(400, 100)); 
+		btn_1.setPreferredSize(new Dimension(400, 75)); 
 
 		Button btn_2 = new Button("Skill Match");
 		btn_2.setBackground(Color.green.darker());
-		btn_2.setPreferredSize(new Dimension(400, 100)); 
+		btn_2.setPreferredSize(new Dimension(400, 75)); 
 
-		Button btn_3 = new Button("Situation");
+		Button btn_3 = new Button("Situations");
 		btn_3.setBackground(Color.green.darker());
-		btn_3.setPreferredSize(new Dimension(400, 100));    
+		btn_3.setPreferredSize(new Dimension(400, 75));    
 
+		buttonLst.add(btn_0);
 		buttonLst.add(btn_1);
 		buttonLst.add(btn_2);
 		buttonLst.add(btn_3);
 		
+
+		JPanel cell0 = new JPanel();
+		cell0.add(btn_0);
+		cell0.setBackground(Color.green.darker());
+		panel2.add(cell0);
 		JPanel cell1 = new JPanel();
 		cell1.add(btn_1);
 		cell1.setBackground(Color.green.darker());
@@ -90,11 +89,11 @@ public class homeScreen extends JFrame{
 		cell3.setBackground(Color.green.darker());
 		panel2.add(cell3);
 		
-		panel2.setBackground(Color.magenta);
-		panel2.setBounds(0,0,600, 500);
+		panel2.setBounds(0,75,600, 500);
 		
 		//adding the panel to the Container of the JFrame
-        c.add(panel2);
+		c.add(panel1);
+		c.add(panel2);
         setVisible(true);
         
         return buttonLst;
