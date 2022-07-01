@@ -23,7 +23,7 @@ public class App extends JFrame{
 	//button lists
 	static ArrayList<JButton> acronymButtonLst = new ArrayList<>();
 	static ArrayList<JButton> skillMatchButtonLst = new ArrayList<>();
-	static ArrayList<JButton> situationsButtonLst = new ArrayList<>();
+	//static ArrayList<JButton> situationsButtonLst = new ArrayList<>();
 	static ArrayList<JButton> definitionsButtonLst = new ArrayList<>();
 	static ArrayList<Button> buttonLst;
 	
@@ -105,6 +105,7 @@ public class App extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					definitionsHome.getDefinitions(result1, result2);
+					definitionsHome.resetTextFields();
 				}
 			});
 		}
@@ -257,10 +258,14 @@ public class App extends JFrame{
 	}
 	
 	private static void situationsFrame() {
-		homeScreen.dispose();
 		situationsHome = new situationsHome();
-		situationsButtonLst = situationsHome.situationsPanels();
-		//situationsHome.addSituation();
+		OptionHomeBundle bundle = situationsHome.optionHomePanels("Situations", "Select the skill in the drop down menu that fits the situation");
+		ArrayList<JButton> situationsButtonLst = bundle.buttonAl;
+		ArrayList<JPanel> panelLst = bundle.panelAl; 
+		JLabel result1 = bundle.result1;
+		JLabel result2 = bundle.result2;
+		situationsButtonLst = situationsHome.situationsPanels(situationsButtonLst, panelLst.get(1), result1, result2);
+		//situationsHome.getSituation();
 
 		if(situationsButtonLst.size() > 0) {
 			situationsButtonLst.get(0).addActionListener(new ActionListener() {
@@ -268,7 +273,7 @@ public class App extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					situationsHome.dispose();
-					buttonLst = homeScreen.homescreenPanels();
+					mainFrame();
 				}
 			});
 			//submit
@@ -292,6 +297,7 @@ public class App extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					situationsHome.getSituation();
 					situationsHome.getNext();
 				}
 			});
@@ -336,8 +342,8 @@ public class App extends JFrame{
 	
 	private static void tippAcronymFrame() {
 		acronymFrameOutline tippAcronym = new acronymFrameOutline();
-		String[] standsFor = {"tip the temperature of your face with cold water", "intense exercise", "paced breathing", "paired muscle relaxation"};
-		String[] extras = {"", "", "", ""};
+		String[] standsFor = {"temperature", "intense exercise", "paced breathing", "paired muscle relaxation"};
+		String[] extras = {"tip the of your face with cold water", "", "", ""};
 		someAcronymFrame(tippAcronym, "tipp", standsFor, extras);
 	}
 	

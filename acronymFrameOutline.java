@@ -186,6 +186,9 @@ public class acronymFrameOutline extends optionHomeFrame {
 			String solutionWord = standsFor[i];
 			if(i == acronym.length() - 1)
 				solution += extra + " " + solutionWord;
+			else if(i == 0 && acronym.equals("tipp")) {
+				solution += extra.substring(0, 7) + " " + solutionWord + " " + extra.substring(7, extra.length()) + ", ";
+			}
 			else if(i == 3 && acronym.equals("abcplease"))
 				solution += extra + " " + solutionWord;
 			else

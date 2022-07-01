@@ -166,10 +166,16 @@ public class definitionsHome extends optionHomeFrame {
 		
 	}
 	
+	public void resetTextFields() {
+		for(int i = 0; i < textFields.length; i++) {
+			textFields[i].setText("");
+		}
+	}
+	
 	public void getDefinitions(JLabel result1, JLabel result2) {
 		result1.setVisible(false);
 		result2.setVisible(false);
-		int definitionLineLength = 30; 
+		int definitionLineLength = 35; 
 		int skillLength = 15; 
 		if(skillsStack.size() < 4) {
 			assembleStack();
@@ -238,7 +244,7 @@ public class definitionsHome extends optionHomeFrame {
 				definitionLabels[j5].setText((String) curDef.subSequence(getProperSubsequence(definitionLineLength * 4, curDef), curDef.length()));
 				
 			}
-			if(curDef.length() > 3 * definitionLineLength) {
+			else if(curDef.length() > 3 * definitionLineLength) {
 				definitionLabels[j1].setText((String) curDef.subSequence(0, getProperSubsequence(definitionLineLength, curDef)));
 				definitionLabels[j2].setText((String) curDef.subSequence(getProperSubsequence(definitionLineLength, curDef), getProperSubsequence(definitionLineLength * 2, curDef)));
 				definitionLabels[j3].setText((String) curDef.subSequence(getProperSubsequence(definitionLineLength * 2, curDef), getProperSubsequence(definitionLineLength * 3, curDef)));

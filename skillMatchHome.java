@@ -76,7 +76,7 @@ public class skillMatchHome extends optionHomeFrame{
 		String[] optionsToChoose = {"Mindfulness", "Interpersonal Effectiveness", "Emotional Regulation", "Distress tolerance"};
 
 		category1 = new JComboBox<>(optionsToChoose);
-		category1.setBounds(300, 150, 180, 20);
+		category1.setBounds(300, 150, 230, 20);
 		panel2.add(category1);
 		
 		result1.setVisible(false);
