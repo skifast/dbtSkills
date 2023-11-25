@@ -3,6 +3,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -153,7 +154,7 @@ public class definitionsHome extends optionHomeFrame {
 		while(skillsStack.size() > 0) {
 			skillsStack.pop();
 		}
-		Random rand = new Random();
+		Random rand = new SecureRandom();
 		Object[] skills = skillsNDefs.keySet().toArray();
 		int randomNum = rand.nextInt(skills.length);
 		
@@ -180,7 +181,7 @@ public class definitionsHome extends optionHomeFrame {
 		if(skillsStack.size() < 4) {
 			assembleStack();
 		}
-		Random rand = new Random();
+		Random rand = new SecureRandom();
 		ArrayList<Integer> pickedNumbers = new ArrayList<>();
 		
 		for(int i = 0; i < 4; i++) {

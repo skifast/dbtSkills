@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -241,7 +242,7 @@ public class situationsHome extends optionHomeFrame{
 	}
 	
 	public void assembleStack() {
-		Random rand = new Random();
+		Random rand = new SecureRandom();
 		for(int i = 0; i < situations.size(); i++) {
 			int randomInt = rand.nextInt(situations.size());
 			while(situationStack.contains(situations.get(randomInt))) {
@@ -330,7 +331,7 @@ public class situationsHome extends optionHomeFrame{
 	}
 	
 	public List<String> selectRandomSkills(String randomRightAnswer) {
-		Random rand = new Random();
+		Random rand = new SecureRandom();
 		int randomInt;
 		List<String> randomlySelectedSkills = new ArrayList<>();
 		
@@ -364,7 +365,7 @@ public class situationsHome extends optionHomeFrame{
 	public String[] getOptionsToChoose() {
 		
 		String[] result = new String[5];
-		Random rand = new Random();
+		Random rand = new SecureRandom();
 		
 		List<String> rightAnswers = possibleRightAnswers.get(curSituation); 
 		int rightAnswerIndex = rand.nextInt(rightAnswers.size());
@@ -379,7 +380,7 @@ public class situationsHome extends optionHomeFrame{
 		List<String> randomSkills = selectRandomSkills(randomRightAnswer);
 
 		List<Integer> occupiedIndices = new ArrayList<Integer>();
-		rand = new Random();
+		rand = new SecureRandom();
 		int count = 0; 
 		while(count < 4) {
 			int nextIndex = rand.nextInt(5);

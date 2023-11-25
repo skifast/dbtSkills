@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,7 +90,7 @@ public class skillMatchHome extends optionHomeFrame{
 	}
 	
 	public void assembleStack() {
-		Random rand = new Random();
+		Random rand = new SecureRandom();
 		int nextInt;
 		for(int i = 0; i < dbtSkills.size(); i++) {
 			nextInt = rand.nextInt(dbtSkills.size());
