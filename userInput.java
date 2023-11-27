@@ -140,14 +140,14 @@ public class userInput extends JFrame{
 				selectType.setVisible(false);
 				
 				String type = (String) exerciseType.getSelectedItem();
-				if(type.equals("Strength")) {
+				if("Strength".equals(type)) {
 					//lowerRight.remove(selectType);
 					//lowerRight.remove(exerciseType);
 					lowerRight.add(strengthType);
 					lowerRight.add(selectStrength);
 					
 				}
-				else if(type.equals("Cardio")) {
+				else if("Cardio".equals(type)) {
 					//lowerRight.remove(selectType);
 					//lowerRight.remove(exerciseType);
 					lowerRight.add(cardioType);
@@ -166,7 +166,7 @@ public class userInput extends JFrame{
 				String type = (String) strengthType.getSelectedItem();
 				lowerRight.remove(selectStrength);
 				lowerRight.remove(strengthType);
-				if(type.equals("Squat")) {
+				if("Squat".equals(type)) {
 					lowerRight.remove(selectStrength);
 					lowerRight.remove(strengthType);
 					//lowerRight.add(strengthType);
@@ -182,7 +182,7 @@ public class userInput extends JFrame{
 				selectType.setVisible(false);
 				
 				String type = (String) exerciseType.getSelectedItem();
-				if(type.equals("Cardio")) {
+				if("Cardio".equals(type)) {
 					lowerRight.remove(selectType);
 					lowerRight.remove(exerciseType);
 					lowerRight.add(cardioType);

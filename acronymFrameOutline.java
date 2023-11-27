@@ -156,7 +156,7 @@ public class acronymFrameOutline extends optionHomeFrame {
 		boolean correctAnswer = true; 
 		for(int i = 0; i < acronym.length(); i++) {
 			String curTextField = textFields[i].getText().toLowerCase(); 
-			if(curTextField.equals("")) {
+			if("".equals(curTextField)) {
 				result2.setVisible(false);
 				result1.setVisible(true);
 				correctAnswer = false; 
@@ -186,10 +186,10 @@ public class acronymFrameOutline extends optionHomeFrame {
 			String solutionWord = standsFor[i];
 			if(i == acronym.length() - 1)
 				solution += extra + " " + solutionWord;
-			else if(i == 0 && acronym.equals("tipp")) {
+			else if(i == 0 && "tipp".equals(acronym)) {
 				solution += extra.substring(0, 7) + " " + solutionWord + " " + extra.substring(7, extra.length()) + ", ";
 			}
-			else if(i == 3 && acronym.equals("abcplease"))
+			else if(i == 3 && "abcplease".equals(acronym))
 				solution += extra + " " + solutionWord;
 			else
 				solution += extra + " " + solutionWord + ", ";
