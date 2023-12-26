@@ -164,7 +164,9 @@ public class acronymFrameOutline extends optionHomeFrame {
 			}
 			else {
 				if(!curTextField.toLowerCase().contains(standsFor[i].toLowerCase()))
-					correctAnswer = false; 
+					{
+					    correctAnswer = false;
+					} 
 					result2.setVisible(false);
 					result1.setVisible(true);
 					result1.setText("That's incorrect, try again or press 'Show Solution'");
