@@ -408,28 +408,28 @@ public class App extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					acronym.dispose();
-					if(acronymName.equals("fast")) {
+					if("fast".equals(acronymName)) {
 						giveAcronymFrame();
 					}
-					else if(acronymName.equals("give")) {
+					else if("give".equals(acronymName)) {
 						dearmanAcronymFrame();
 					}
-					else if(acronymName.equals("dearman")) {
+					else if("dearman".equals(acronymName)) {
 						abcpleaseAcronymFrame();
 					}
-					else if(acronymName.equals("abcplease")) {
+					else if("abcplease".equals(acronymName)) {
 						stopAcronymFrame(); 
 					}
-					else if(acronymName.equals("stop")) {
+					else if("stop".equals(acronymName)) {
 						tippAcronymFrame(); 
 					}
-					else if(acronymName.equals("tipp")) {
+					else if("tipp".equals(acronymName)) {
 						acceptsAcronymFrame(); 
 					}
-					else if(acronymName.equals("accepts")) {
+					else if("accepts".equals(acronymName)) {
 						improveAcronymFrame(); 
 					}
-					else if(acronymName.equals("improve")) {
+					else if("improve".equals(acronymName)) {
 						fastAcronymFrame(); 
 					}
 				}
